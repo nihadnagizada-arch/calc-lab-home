@@ -3,9 +3,9 @@
 // Compile with: gcc -O2 -Wall -Wextra -std=c17 -o calc calc.c -lm
 // Resources used: OpenAI ChatGPT (AI assistance for understanding parser design,
 // error-position rules, and testing).
-//Link:https://chatgpt.com/share/6ade3a33-7ca4-83ed-b3ce-0723565f5e2c
-//Be honestly of course I used AI tool but for learnig for imporving my knowledges about C langugage.
-
+// AI conversation history: https://chatgpt.com/share/6ade3a33-7ca4-83ed-b3ce-0723565f5e2c
+// I used AI tools to support my learning, improve my understanding
+// of C programming, and explore parser design and testing.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -51,7 +51,10 @@ typedef struct {
     long long integer;
     double floating;
 } Value;
-
+// Prompt 1: Help me build an arithmetic parser in C step by step,
+// giving me partial code and letting me implement the functions.
+// Prompt 2: Help me implement tokenization and track the correct
+// character positions for parsing errors.
 // I made the tokenizer read one token at a time and keep its position,
 // so I can report the exact location of a parsing error.
 // I changed the number buffer to use dynamic memory instead of
@@ -235,6 +238,8 @@ static Value primary(Parser *p)
 
 // I made power() call itself for the exponent so that powers
 // are evaluated from right to left, as in 2**(3**2).
+// Prompt 3: Explain how to implement operator precedence,
+// parentheses, and right-associative exponentiation.
 static Value power(Parser *p)
 {
     Value left = primary(p);
@@ -312,7 +317,8 @@ static Value term(Parser *p)
         if (p->has_error) {
             return left;
         }
-        
+// Prompt 4: Review my arithmetic operations, including integer division,
+// floating-point calculations, division by zero, and negative exponents.
 // I separated integer and floating-point calculations.
 // This keeps integer division truncated toward zero, while
 // expressions with a float are evaluated using double.
@@ -505,6 +511,8 @@ static char *join_path(const char *directory, const char *name)
 static int read_line(FILE *file, char **line, size_t *capacity,
                      size_t *length)
 {
+    // Prompt 5: Help me review file handling, dynamic line reading,
+    // output paths, memory allocation, and overflow checks.
     // I grow the line buffer only when it is full, so long lines
     // can be read without a fixed maximum line length.
     *length = 0;
@@ -677,7 +685,8 @@ static int process_file(const char *input_path, const char *output_path)
 
     return 0;
 }
-
+// Prompt 6: Review my command-line argument handling for file mode,
+// directory mode, and output directory options.
 int main(int argc, char *argv[])
 {
     const char *input_path = NULL;
@@ -879,3 +888,7 @@ int main(int argc, char *argv[])
     free(default_output);
     return status;
 }
+// Prompt 7: Help me debug compilation errors and identify problems
+// in my C code.
+// Prompt 8: Help me verify my implementation using the provided
+// functional tests, CLI tests, and sanitizer tests.
